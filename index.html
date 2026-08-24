@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum Interactivo Escolar</title>
+    
+    <!-- 🎨 ARCHIVOS DE ESTILOS MODULARES (Separados por vista) -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/album.css">
+</head>
+<body>
+
+    <!-- ======================================================== -->
+    <!-- 1. PANTALLA DE LOGEO Y REGISTRO                          -->
+    <!-- ======================================================== -->
+    <div id="auth-screen" class="screen auth-estudiantil-container">
+        <div class="auth-pizarra">
+            
+            <div class="auth-titulo-escolar">
+                <h1>🎒 ¡Mi Álbum de Figuras! 🎨</h1>
+                <p>¡Colecciona, intercambia y completa el álbum con tus compañeros!</p>
+            </div>
+            
+            <div class="auth-cuaderno-layout">
+                
+                <!-- SECCIÓN LOGIN ESCOLAR -->
+                <form id="login-form" class="bloque-estudiantil bloque-azul">
+                    <h2>🔑 Ingresar a mi Cuenta</h2>
+                    <div class="campo-escolar">
+                        <label for="login-username">👤 Tu Nombre de Usuario:</label>
+                        <input type="text" id="login-username" placeholder="Ej: pepito123" required>
+                    </div>
+                    <div class="campo-escolar">
+                        <label for="login-password">🔒 Tu Contraseña Secretísima:</label>
+                        <input type="password" id="login-password" placeholder="Contraseña aquí..." required>
+                    </div>
+                    <button type="submit" class="btn-estudiantil btn-jugar">¡A Jugar! 🚀</button>
+                </form>
+
+                <div class="decoracion-vs">⚡ ¡O! ⚡</div>
+
+                <!-- SECCIÓN REGISTRO ESCOLAR -->
+                <form id="register-form" class="bloque-estudiantil bloque-amarillo">
+                    <h2>📝 ¿Eres Nuevo? ¡Regístrate!</h2>
+                    <div class="campo-escolar">
+                        <label for="reg-username">✨ Elige tu Usuario:</label>
+                        <input type="text" id="reg-username" placeholder="Tu apodo o nombre..." required>
+                    </div>
+                    <div class="campo-escolar">
+                        <label for="reg-password">🔑 Crea una Contraseña:</label>
+                        <input type="password" id="reg-password" placeholder="No se la digas a nadie" required>
+                    </div>
+                    <div class="campo-escolar">
+                        <label for="reg-type">🏫 Elige tu Rol en el Juego:</label>
+                        <select id="reg-type" required>
+                            <option value="A">Soy Docente</option>
+                            <option value="B" selected>Soy Alumno</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-estudiantil btn-crear">¡Crear mi Cuenta! 🎉</button>
+                </form>
+                
+            </div>
+
+            <!-- Alertas dinámicas con diseño de sticker -->
+            <div id="auth-message" class="sticker-alerta"></div>
+        </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- 2. PANTALLA DEL ADMINISTRADOR (adm)                      -->
+    <!-- ======================================================== -->
+    <div id="admin-screen" class="screen hidden">
+        <header>
+            <h2>Panel de Administrador (adm)</h2>
+            <button class="logout-btn">Cerrar Sesión</button>
+        </header>
+        <main>
+            <section class="admin-section">
+                <h3>Monitoreo y Permisos de Usuarios</h3>
+                <table id="users-table">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Contraseña</th>
+                            <th>Tipo</th>
+                            <th>Estado Permiso</th>
+                            <th>Bloqueo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <!-- Se llena dinámicamente con JS -->
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="admin-section">
+                <h3>Enviar Alerta / Mensaje de Normas</h3>
+                <select id="msg-target-user">
+                    <!-- Se llena dinámicamente con JS -->
+                </select>
+                <input type="text" id="admin-msg-text" placeholder="Escribe la advertencia o mensaje aquí...">
+                <button id="send-msg-btn">Enviar Mensaje</button>
+            </section>
+        </main>
+    </div>
+
+<!-- ======================================================== -->
+<!-- 3. PANTALLA DE USUARIO TIPO A (DOCENTE / GENERADOR)     -->
+<!-- ======================================================== -->
+<div id="userA-screen" class="screen hidden user-type-a">
+    <header>
+        <h2>Panel Usuario Tipo A (Docente): <span id="username-display-A"></span></h2>
+        <button class="logout-btn">Cerrar Sesión</button>
+    </header>
+    <main>
+        <div id="userA-notifications"></div>
+        
+        <!-- CONTENEDOR EN 2 COLUMNAS (GENERADOR E INVENTARIO LADO A LADO) -->
+        <div class="grid-docente-superior">
+            
+            <!-- BLOQUE 1: GENERADOR DE FIGURAS -->
+            <section class="panel-box panel-generador">
+                <h3>🎲 Generador de Figuras al Azar</h3>
+                <button id="generate-fig-btn" class="btn-escolar btn-azul">Generar Figura</button>
+                <div id="generated-fig-display" class="figura-preview">
+                    <!-- Aquí aparece la figura generada -->
+                </div>
+            </section>
+
+            <!-- BLOQUE 2: FIGURAS GUARDADAS Y ENVÍO -->
+            <section class="panel-box panel-inventario-docente">
+                <h3>📦 Mis Figuras Guardadas <small>(Máx 5 para enviar)</small></h3>
+                
+                <div id="userA-inventory" class="inventory-grid">
+                    <!-- Figuras en stock docente -->
+                </div>
+                
+                <div class="send-container">
+                    <label for="send-target-user">Enviar a Usuario Tipo B:</label>
+                    <div class="control-envio-docente">
+                        <select id="send-target-user" class="input-escolar">
+                            <option value="">-- Seleccionar Destinatario B --</option>
+                        </select>
+                        <button id="send-figs-btn" class="btn-escolar btn-azul">Enviar Figuras Seleccionadas</button>
+                    </div>
+                </div>
+            </section>
+
+        </div> <!-- FIN GRID SUPERIOR -->
+
+        <!-- PANEL DE AVANCE DE ALUMNOS (VISTA DOCENTE) -->
+        <section class="panel-docente-progreso">
+            <h2>📊 Avance y Rendimiento de Alumnos en Tiempo Real</h2>
+            <div id="lista-progreso-alumnos" class="contenedor-barras-docente">
+                <!-- Se rellenará dinámicamente con JS -->
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<!-- ======================================================== -->
+<!-- 4. PANTALLA DE USUARIO TIPO B (ALUMNO / ÁLBUM)           -->
+<!-- ======================================================== -->
+<div id="userB-screen" class="screen hidden pantalla-alumno">
+    
+    <!-- ENCABEZADO ESCOLAR CON BARRA DE PROGRESO -->
+    <div class="etiqueta-cuaderno-top">
+        <div class="datos-etiqueta">
+            <p><strong>ALUMNO:</strong> <span id="username-display-B">Cargando...</span></p>
+            <p><strong>CURSO:</strong> Geometría Divertida 📐</p>
+            <p><strong>COLEGIO:</strong> Mi Escuela Virtual 🏫</p>
+        </div>
+        
+        <div class="progreso-album-container">
+            <div class="texto-progreso">
+                <span>⭐ Mi Progreso: <strong id="texto-porcentaje">0%</strong></span>
+                <span>(<span id="figuras-pegadas-contador">0</span>/20)</span>
+            </div>
+            <div class="barra-fondo-colegial">
+                <div id="barra-progreso-llena" class="barra-llenado-animada" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <button class="logout-btn btn-cerrar-cuaderno">Guardar y Salir 🚪</button>
+    </div>
+
+    <!-- LAYOUT DEL ALUMNO: SOBRE IZQUIERDA Y COLUMNA DERECHA -->
+    <div class="layout-alumno">
+        
+        <!-- COLUMNA IZQUIERDA: SOBRE Y PILÓN DE REPETIDAS -->
+        <div class="columna-sobre">
+            <div id="userB-notifications"></div>
+            
+            <div class="sobre-figuras">
+                <div class="sobre-borde-decorativo"></div>
+                <h3>📬 Mis Figuritas Nuevas</h3>
+                <p>Haz clic en "Pegar" para llevarlas a tu cuaderno:</p>
+                <div id="received-figs-container" class="pila-recibidos">
+                    <!-- Figuritas recibidas -->
+                </div>
+            </div>
+
+            <div class="pilon-repetidas">
+                <h3>🔄 Mi Pilón de Repetidas</h3>
+                <p>Haz clic sobre una figura para seleccionarla:</p>
+                <div id="repeated-figs-container" class="cuadrilla-repetidas">
+                    <!-- Figuras repetidas -->
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: CUADERNO + BLOQUES DE TRANSACCIONES ABAJO -->
+        <div class="columna-derecha-cuaderno">
+            
+            <!-- EL CUADERNO ANILLADO ABIERTO (ÁLBUM) -->
+            <div class="cuaderno-abierto">
+                <div class="anillos-centrales">
+                    <div class="anillo"></div>
+                    <div class="anillo"></div>
+                    <div class="anillo"></div>
+                    <div class="anillo"></div>
+                    <div class="anillo"></div>
+                    <div class="anillo"></div>
+                </div>
+                
+                <div class="hoja-cuaderno">
+                    <h3 class="titulo-album-interno">✨ Mi Colección de Geometría ✨</h3>
+                    
+                    <div id="album-notebook" class="cuadrilla-album">
+                        <!-- Slots paginados dibujados con JS -->
+                    </div>
+
+                    <div class="paginacion-libro">
+                        <button id="btn-pag-prev" onclick="cambiarPagina(-1)" class="btn-pag">◀ Anterior</button>
+                        <span id="info-pagina">Página 1 de 4</span>
+                        <button id="btn-pag-next" onclick="cambiarPagina(1)" class="btn-pag">Siguiente ▶</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE INTERCAMBIO Y CANJE (OCUPA EL ESPACIO VACÍO MOSTRADO EN TU CAPTURA) -->
+            <div class="zona-transacciones-alumno">
+                <!-- Bloque 1: Intercambio con Compañeros -->
+                <div class="bloque-transaccion-card">
+                    <h3>🤝 Intercambiar con otro Alumno</h3>
+                    <p>Selecciona a qué compañero quieres transferirle tus figuras repetidas:</p>
+                    <div class="control-intercambio">
+                        <select id="intercambio-target-user" class="input-escolar">
+                            <option value="">-- Seleccionar Compañero --</option>
+                        </select>
+                        <button id="btn-intercambiar-b" class="btn-escolar btn-azul" onclick="ejecutarIntercambioB()">Enviar Seleccionadas</button>
+                    </div>
+                    <small style="color: #64748b; display:block; margin-top:5px;">* Haz clic en tus figuras del "Pilón de Repetidas" para seleccionarlas antes de enviar.</small>
+                </div>
+
+                <!-- Bloque 2: Canje por Puntos -->
+                <div class="bloque-transaccion-card canje-puntos-card">
+                    <h3>🏆 Canje de Puntos Escolares</h3>
+                    <p>Cambia <strong>5 figuras repetidas</strong> cualesquiera por <strong>1 Punto</strong> con el Profesor.</p>
+                    <div class="marcador-puntos">
+                        Mis Puntos: <span id="mis-puntos-contador">0</span> ⭐
+                    </div>
+                    <button id="btn-canjear-puntos" class="btn-escolar btn-verde" onclick="ejecutarCanjePorPuntos()">
+                        Canjear 5 Repetidas x 1 Punto
+                    </button>
+                </div>
+            </div>
+
+        </div> <!-- FIN COLUMNA DERECHA -->
+
+    </div> <!-- FIN LAYOUT ALUMNO -->
+
+    <!-- MODAL DE INFORMACIÓN ESTILO PIZARRA ESCOLAR -->
+    <div id="modal-descripcion" class="hidden">
+        <div class="modal-contenido-escolar">
+            <span class="modal-cerrar-x" onclick="cerrarModalDesc()">&times;</span>
+            <h2 id="modal-titulo-figura">Figura</h2>
+            <div id="modal-forma-preview"></div>
+            <p id="modal-texto-descripcion">Descripción de la figura...</p>
+        </div>
+    </div>
+
+</div> <!-- FIN PANTALLA ALUMNO -->
+
+
+    <!-- ======================================================== -->
+    <!-- ⚙️ LIBRERÍAS DE FIREBASE Y SCRIPTS MODULARES              -->
+    <!-- ======================================================== -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- Módulos de lógica JS ordenados por jerarquía -->
+	<script src="js/firebase-config.js"></script>
+	<script src="js/auth.js"></script>
+	<script src="js/admin.js"></script>
+	<script src="js/album.js"></script>
+</body>
+</html>
+
