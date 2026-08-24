@@ -285,21 +285,42 @@
             <p id="modal-texto-descripcion">Descripción de la figura...</p>
         </div>
     </div>
-
+	
 </div> <!-- FIN PANTALLA ALUMNO -->
 
-
-    <!-- ======================================================== -->
+<!-- ======================================================== -->
     <!-- ⚙️ LIBRERÍAS DE FIREBASE Y SCRIPTS MODULARES              -->
     <!-- ======================================================== -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+      // 🔥 Tus credenciales reales vinculadas a tu base de datos activa
+      const firebaseConfig = {
+        apiKey: "AIzaSyByX0SYi1AqbawvMwAgs2KBrKL5i3U71xg",
+        authDomain: "proyecto-album-por-vidal.firebaseapp.com",
+        databaseURL: "https://proyecto-album-por-vidal-default-rtdb.firebaseio.com", 
+        projectId: "proyecto-album-por-vidal",
+        storageBucket: "proyecto-album-por-vidal.firebasestorage.app",
+        messagingSenderId: "533331214709",
+        appId: "1:533331214709:web:4aee4192017f5f3d9c533c",
+        measurementId: "G-NHXB0B4T8T"
+      };
+
+      // Inicializar Firebase globalmente
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
+      
+      // Variables globales requeridas por tus archivos js
+      const CLAVE_SESION_PESTANA = 'usuario_sesion_album';
+      let listaUsuariosGlobal = [];
+      let usuarioActual = null;
+    </script>
 
     <!-- Módulos de lógica JS ordenados por jerarquía -->
-	<script src="js/firebase-config.js"></script>
-	<script src="js/auth.js"></script>
-	<script src="js/admin.js"></script>
-	<script src="js/album.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/album.js"></script>
 </body>
 </html>
 
