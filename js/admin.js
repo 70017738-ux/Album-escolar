@@ -1,4 +1,26 @@
 // ========================================================
+// 📐 BANCO DE FIGURAS Y CONFIGURACIÓN GLOBAL
+// ========================================================
+if (typeof BANCO_FIGURAS === 'undefined') {
+    window.BANCO_FIGURAS = [
+        { id: 1, nombre: "Triángulo", clase: "triangulo" },
+        { id: 2, nombre: "Cuadrado", clase: "cuadrado" },
+        { id: 3, nombre: "Círculo", clase: "circulo" },
+        { id: 4, nombre: "Rectángulo", clase: "rectangulo" },
+        { id: 5, nombre: "Rombo", clase: "rombo" },
+        { id: 6, nombre: "Pentágono", clase: "pentagono" },
+        { id: 7, nombre: "Hexágono", clase: "hexagono" },
+        { id: 8, nombre: "Trapecio", clase: "trapecio" },
+        { id: 9, nombre: "Óvalo", clase: "ovalo" },
+        { id: 10, nombre: "Paralelogramo", clase: "paralelogramo" }
+    ];
+}
+
+if (typeof IDS_HOLOGRAFICOS === 'undefined') {
+    window.IDS_HOLOGRAFICOS = [5, 10]; // Rombo y Paralelogramo como especiales
+}
+
+// ========================================================
 // PANEL ADMINISTRADOR Y DOCENTE (GENERADOR TIPO A)
 // ========================================================
 
@@ -230,6 +252,7 @@ if (sendFigsBtn) {
         window.actualizarInventarioA();
     });
 }
+
 // ========================================================
 // 💾 ENLACE DIRECTO DE ADMIN A LA BASE DE DATOS FIREBASE
 // ========================================================
