@@ -1,0 +1,409 @@
+/* --- ESTILOS GENERALES Y CONFIGURACIÓN --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    transition: background 0.5s ease;
+}
+
+/* Clases utilitarias para ocultar elementos */
+.hidden {
+    display: none !important;
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- CAMBIOS DE FONDO SEGÚN EL TIPO DE USUARIO --- */
+
+/* Fondo para el Login y Admin (Neutro) */
+body:not(.user-type-a):not(.user-type-b) {
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+}
+
+/* Fondo Usuario Tipo A (Tonalidades cálidas/creativas) */
+body.user-type-a {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+}
+
+/* Fondo Usuario Tipo B (Tonalidades frías/de colección) */
+body.user-type-b {
+    background-color: #f0fdf4;
+    background-image: radial-gradient(#bbf7d0 1.5px, transparent 1.5px), radial-gradient(#bbf7d0 1.5px, #f0fdf4 1.5px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+}
+
+/* --- FORMULARIOS BASE --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+form h3 {
+    font-size: 1.1rem;
+    color: #475569;
+}
+
+input, select, button {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: #3b82f6;
+}
+
+button {
+    background-color: #2563eb;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+.logout-btn {
+    background-color: #ef4444;
+}
+.logout-btn:hover {
+    background-color: #dc2626;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #e2e8f0;
+    margin: 20px 0;
+}
+
+.message {
+    text-align: center;
+    font-weight: bold;
+    color: #e11d48;
+    margin-top: 10px;
+}
+
+/* --- PANTALLA DE AUTENTICACIÓN Y REGISTRO --- */
+.auth-container {
+    background: white;
+    max-width: 450px;
+    margin: 60px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+.auth-estudiantil-container {
+    min-height: 100vh;
+    background-color: #f0fdf4;
+    background-image: radial-gradient(#bbf7d0 1.5px, transparent 1.5px), radial-gradient(#bbf7d0 1.5px, #f0fdf4 1.5px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Ubuntu', sans-serif;
+}
+
+.auth-pizarra {
+    width: 100%;
+    max-width: 1000px;
+    background: #ffffff;
+    border: 4px solid #000000;
+    border-radius: 24px;
+    box-shadow: 8px 8px 0px #000000;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.auth-titulo-escolar {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.auth-titulo-escolar h1 {
+    font-size: 2.5rem;
+    color: #1e3a8a;
+    text-shadow: 2px 2px 0px #fed7aa;
+    margin: 0 0 10px 0;
+}
+
+.auth-titulo-escolar p {
+    font-size: 1.1rem;
+    color: #475569;
+    font-weight: bold;
+    margin: 0;
+}
+
+.auth-cuaderno-layout {
+    display: flex;
+    gap: 30px;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.bloque-estudiantil {
+    flex: 1;
+    border: 3.5px solid #000000;
+    border-radius: 20px;
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 6px 6px 0px #000000;
+    transition: transform 0.2s ease;
+}
+
+.bloque-estudiantil:hover {
+    transform: translateY(-3px);
+}
+
+.bloque-azul { background-color: #e0f2fe; }
+.bloque-amarillo { background-color: #fef9c3; }
+
+.bloque-estudiantil h2 {
+    margin-top: 0;
+    color: #0f172a;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.campo-escolar {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.campo-escolar label {
+    font-weight: bold;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.campo-escolar input, 
+.campo-escolar select {
+    padding: 12px;
+    font-size: 1rem;
+    border: 3px solid #000000;
+    border-radius: 12px;
+    background: #ffffff;
+    font-family: inherit;
+    outline: none;
+}
+
+.campo-escolar input:focus, 
+.campo-escolar select:focus {
+    background-color: #f8fafc;
+    box-shadow: 0 0 0 3px #6366f1;
+}
+
+.decoracion-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: #ef4444;
+    background: #ffffff;
+    border: 3px solid #000000;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    align-self: center;
+    box-shadow: 4px 4px 0px #000000;
+}
+
+.btn-estudiantil {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    font-family: inherit;
+    border: 3px solid #000000;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #000000;
+    transition: all 0.1s ease;
+}
+
+.btn-estudiantil:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0px #000000;
+}
+
+.btn-jugar { background-color: #4ade80; color: #000; }
+.btn-crear { background-color: #fb923c; color: #000; }
+
+.sticker-alerta {
+    margin-top: 25px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* --- FIGURAS Y FORMAS BASE --- */
+.figura-card, div#generated-fig-display, .figura-preview {
+    width: 120px !important;
+    height: 145px !important;
+    min-width: 120px !important;
+    max-width: 120px !important;
+    border: 3px solid #000000 !important;
+    border-radius: 12px !important;
+    box-shadow: 4px 4px 0px #000000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: #ffffff !important;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.1s ease;
+    font-weight: bold !important;
+    font-size: 0.9rem !important;
+    text-align: center !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.figura-card.active {
+    border: 3px solid #3b82f6 !important;
+    background: #eff6ff !important;
+}
+
+.figura-card span, div#generated-fig-display span, .figura-preview span {
+    font-size: 0.9rem !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+    display: block !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 !important;
+}
+
+.shape {
+    width: 50px !important;
+    height: 50px !important;
+    margin-bottom: 12px !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+}
+.shape.circulo { background: #ef4444 !important; border-radius: 50% !important; border: 2.5px solid #000000 !important; }
+.shape.cuadrado { background: #3b82f6 !important; border: 2.5px solid #000000 !important; }
+.shape.triangulo { 
+    width: 0 !important; height: 0 !important; 
+    background-color: transparent !important;
+    border-left: 25px solid transparent !important; 
+    border-right: 25px solid transparent !important; 
+    border-bottom: 50px solid #10b981 !important; 
+    filter: drop-shadow(0px 2.5px 0px #000000);
+}
+.shape.rectangulo { width: 65px !important; height: 40px !important; background: #f59e0b !important; border: 2.5px solid #000000 !important; }
+.shape.ovalo { width: 60px !important; height: 40px !important; background: #8b5cf6 !important; border-radius: 50% !important; border: 2.5px solid #000000 !important; }
+.shape.rombo { 
+    background: #ec4899 !important; 
+    transform: rotate(45deg) scale(0.75) !important; 
+    border: 2.5px solid #000000 !important;
+    margin-bottom: 5px !important;
+}
+
+/* --- EFECTO HOLOGRÁFICO --- */
+.figura-holografica {
+    background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 25%, #64748b 50%, #f1f5f9 75%, #475669 100%) !important;
+    background-size: 300% 300% !important;
+    animation: brilloCromado 5s ease infinite !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border: 3px solid #000000 !important;
+    box-shadow: 4px 4px 0px #000000 !important;
+}
+
+div#generated-fig-display.figura-holografica {
+    background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 25%, #64748b 50%, #f1f5f9 75%, #475669 100%) !important;
+}
+
+.figura-holografica::before {
+    content: ''; position: absolute; top: -50%; left: -60%; width: 35%; height: 200%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 30%, rgba(203, 213, 225, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(25deg); animation: reflejoMetalico 3s cubic-bezier(0.4, 0, 0.2, 1) infinite; pointer-events: none; z-index: 2;
+}
+
+@keyframes brilloCromado { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes reflejoMetalico { 0% { left: -70%; } 25% { left: 130%; } 100% { left: 130%; } }
+.figura-holografica .shape { filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5)) !important; }
+
+/* --- BOTONES ESCOLARES GENÉRICOS --- */
+.btn-escolar {
+    font-family: inherit;
+    font-weight: bold;
+    border: 2px solid #000;
+    border-radius: 6px;
+    padding: 8px 15px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #000;
+}
+.btn-azul { background: #3b82f6; color: white; }
+.btn-verde { background: #22c55e; color: white; }
+.btn-escolar:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0px #000; }
+
+/* --- NOTIFICACIONES Y ALERTAS EN PANTALLA --- */
+.alert-box {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.alert-box.info { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+.alert-box.success { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.alert-box.warning { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+/* --- RESPONSIVIDAD GENERAL --- */
+@media (max-width: 850px) {
+    .auth-cuaderno-layout {
+        flex-direction: column;
+    }
+    .decoracion-vs {
+        margin: 10px auto;
+    }
+    .auth-pizarra {
+        padding: 20px;
+    }
+}
