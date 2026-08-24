@@ -277,6 +277,21 @@ function mostrarMensajesAdmin(contenedorId) {
         });
     }
 }
-
+// ========================================================
+// 💾 FUNCIÓN PARA GUARDAR LOS DATOS DIRECTO EN FIREBASE
+// ========================================================
+function guardarUsuariosEnNube(nuevaLista) {
+    db.ref('usuarios').set(nuevaLista)
+        .then(() => {
+            console.log("¡Datos sincronizados en Firebase con éxito!");
+        })
+        .catch((error) => {
+            console.error("Error al guardar en Firebase:", error);
+            if (mensajeAuth) {
+                mensajeAuth.style.color = '#ef4444';
+                mensajeAuth.textContent = 'Hubo un problema de conexión con la base de datos.';
+            }
+        });
+}
 // 🔥 DISPARO DE INICIO AUTOMÁTICO
 inicializarPersistenciaF5();
