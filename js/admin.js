@@ -230,3 +230,19 @@ if (sendFigsBtn) {
         window.actualizarInventarioA();
     });
 }
+// ========================================================
+// 💾 ENLACE DIRECTO DE ADMIN A LA BASE DE DATOS FIREBASE
+// ========================================================
+function guardarUsuariosEnNube(nuevaLista) {
+    if (typeof db !== 'undefined') {
+        db.ref('usuarios').set(nuevaLista)
+            .then(() => {
+                console.log("¡Panel de Control sincronizado en Firebase!");
+            })
+            .catch((error) => {
+                console.error("Error al guardar desde Admin:", error);
+            });
+    } else {
+        console.error("Error: La base de datos Firebase ('db') no está definida en este entorno.");
+    }
+}
